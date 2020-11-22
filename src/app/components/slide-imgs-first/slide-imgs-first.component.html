@@ -1,0 +1,28 @@
+<ion-slides class="ion-padding" mode="ios" scrollbar="ios" [options]="sliderOptions" class="swiper-container">
+  <ion-slide size-lg='3' size-md='4' size-sm='12' size-xs='12' *ngFor="let movie of recentMovies;let i=index">
+
+    <ion-card class="card"  (click)="showMovieDetail(movie.id)">
+      <ion-card-subtitle class="ion-padding" class="subtilte-card">{{movie.title}}</ion-card-subtitle>
+      <!-- <ion-img [src]="movie.backdrop_path | imgPipes"></ion-img> -->
+      <ion-img [src]="movie.poster_path | imgPipes"></ion-img>
+    </ion-card>
+
+  </ion-slide>
+  <ion-slide>
+    
+    <!-- <ion-chip color="success" mode="ios" outline="true">
+      <ion-button (click)="loadMoreMovies($event)" expand="block" fill="clear" shape="round">
+        Load More..
+      </ion-button>
+      
+    </ion-chip> -->
+
+    <ion-chip (click)="loadMoreMovies($event)" color="success" mode="ios" class="chipMargin">
+      <ion-label>Load More</ion-label>
+    </ion-chip>
+      
+    
+    
+  </ion-slide>
+  
+</ion-slides>

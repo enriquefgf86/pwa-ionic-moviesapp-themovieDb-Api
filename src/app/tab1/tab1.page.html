@@ -1,17 +1,97 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-language id="tab1-language-position" (languageSelected)="receiveLanguageselected($event)"></app-language>
+<ion-button (click)="cleanStorage()" expand="block" fill="clear" shape="round">
+  <ion-icon src="../../../assets/reboot.svg" large ></ion-icon>
+</ion-button>
+  <ion-grid fixed>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-row class="row">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+      <ion-col size='12' size-lg='6' size-md='6' size-sm='12' size-xs='12'>
+
+        <ion-item class='date-time-inputs'>
+
+          <ion-label>
+            <ion-icon src="../../assets/firstDay.svg"></ion-icon>
+          </ion-label>
+
+          <ion-datetime displayFormat="YY-MM-DD" (ionChange)="dateInitChange($event)"
+            placeholder="Initial Date {{init}}" [pickerOptions]="customPickerOptions"></ion-datetime>
+
+        </ion-item>
+
+      </ion-col>
+
+      <ion-col size='12' size-lg='6' size-md='6' size-sm='12' size-xs='12'>
+
+        <ion-item class='date-time-inputs'>
+
+          <ion-label>
+            <ion-icon src="../../assets/lastDay.svg"></ion-icon>
+          </ion-label>
+
+          <ion-datetime displayFormat="YY-MM-DD" (ionChange)="dateLastChange($event)" placeholder="Final Date {{last}}"
+            [pickerOptions]="customPickerOptions"></ion-datetime>
+
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+
+  <ion-button *ngIf="initState&&lastState" (click)="rangeOn()" shape="round" color="primary">
+    Search
+  </ion-button>
+
+  <ion-chip color="success" style="width:200px">
+    <ion-avatar>
+      <img src="../../../assets/rangeDate.png">
+    </ion-avatar>
+    <ion-label>Movies on Date Range</ion-label>
+  </ion-chip>
+
+  <app-slide-imgs-first (moreMovies)="loadMoreMovies()" [recentMovies]="recentMovies"></app-slide-imgs-first>
+
+  <ion-chip color="success" style="width:300px">
+    <ion-avatar>
+      <img src="../../../assets/billboard.png">
+    </ion-avatar>
+    <ion-label>Billboard of Movies on Date Range</ion-label>
+  </ion-chip>
+
+
+  <app-slide-img-second-movie (loadMoreBillboard)="loadMoreBillboardMovies()" [recentMoviesPosters]="recentMovies">
+  </app-slide-img-second-movie>
+
+  <ion-chip color="success" style="width:170px">
+    <ion-avatar>
+      <img src="../../../assets/mostPopular.png">
+    </ion-avatar>
+    <ion-label>Most Popular</ion-label>
+  </ion-chip>
+
+  <ion-item>
+
+    <ion-chip color="success" style="width:120px">
+      <ion-label>{{popularityDisplay}}</ion-label>
+    </ion-chip>
+
+    <ion-toggle color="success" (click)="popularityOrder()"></ion-toggle>
+  </ion-item>
+
+  <app-slide-img-popular (chargeMoreMovies)="chargeMovies()" [mostPopularMovies]='mostPopularMovies'>
+  </app-slide-img-popular>
+  <!-- <ion-slides mode="ios" scrollbar="ios" [options]="sliderOptions">
+    <ion-slide *ngFor="let movie of mostPopularMovies;let i=index">
+
+      <ion-card>
+        <ion-card-subtitle>{{movie.title}}</ion-card-subtitle>
+        <ion-img [src]="movie.backdrop_path | imgPipes"></ion-img>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides> -->
 </ion-content>

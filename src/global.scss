@@ -24,3 +24,106 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.posters{
+    width:110px !important;
+    height:160px !important;
+}
+
+.popular{
+    width:90px !important;
+    height:200px !important;
+}
+
+ion-card{
+    // box-shadow:4px 3px 2px 5px;
+    border-radius:2%
+}
+
+.container {
+    position: relative;
+    width: 50%;
+  }
+  
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(177, 31, 31,0.7);
+  }
+  
+  .container:hover .overlay {
+    opacity: 1;
+  }
+  
+  .text {
+    color: white;
+    font-size: 10px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  ion-icon {
+    font-size: 40px; //Preferred size here
+}
+
+.date-time-inputs{
+  max-width: 90%;
+  text-align: center;
+  
+  
+}
+.row{
+  text-align: center;
+}
+.language-input{
+  max-width: 17%;
+
+  position:absolute;
+  margin-top:10%;
+  margin-left:80%;
+  border-radius:30%;
+  background-color: rgb(75,181,67);
+  color:white
+}
+.subtilte-card,.color-tabs{
+  padding-top:2px;  
+  background-color: rgba(75,181,67,.7);
+  color:white
+}
+.languageIcon{
+  position:absolute;
+  margin-left:87.4%;
+  margin-top:10.5%;
+  z-index:3;
+  width:30px;
+  height:30px;
+}
+.imgCard{
+  width:100%;
+  height:100%;
+  object-fit: cover
+}
+.card{
+  border-radius:10px;
+  box-shadow: black 1px 3px 2px 2px;
+}
+.chipMargin{
+  margin-top:40%
+}

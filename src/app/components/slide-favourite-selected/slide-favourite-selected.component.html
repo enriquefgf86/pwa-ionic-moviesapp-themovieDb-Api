@@ -1,0 +1,23 @@
+<ion-slides [options]="sliderOptions">
+  <ion-slide *ngFor="let movieposter of recentMoviesPosters;let i=index">
+
+    <ion-card (click)="showMovieDetail(movieposter.id)">
+      <!-- <ion-card-subtitle>{{movie.title}}</ion-card-subtitle> -->
+      <ion-img class='posters' [src]="movieposter.poster_path | imgPipes"></ion-img>
+    </ion-card>
+
+  </ion-slide>
+
+  <ion-slide>
+
+    <ion-chip color="primary" mode="ios" outline="true">
+
+      <ion-button (click)="loadMoreMovies()" expand="block" fill="clear" shape="round">
+        Load More..
+      </ion-button>
+
+    </ion-chip>
+
+  </ion-slide>
+</ion-slides>
+isl

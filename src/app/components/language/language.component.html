@@ -1,0 +1,7 @@
+<ion-select class="language-input" interface="action-sheet" [placeholder]="language"
+  (ionChange)="countrySelected($event)" [interfaceOptions]="{cssClass: 'my-class'}">
+  <ion-select-option interface="action-sheet" *ngFor="let language of languages" [value]="language">{{language}}
+  </ion-select-option>
+
+</ion-select>
+<!-- <ion-icon  class="languageIcon" src="../../../assets/language.svg" small></ion-icon> -->

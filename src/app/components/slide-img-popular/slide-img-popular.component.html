@@ -1,0 +1,35 @@
+<ion-slides mode="ios" scrollbar="ios" [options]="sliderOptions">
+
+  <ion-slide *ngFor="let movie of mostPopularMovies | moviesInPairsbackdropPath">
+
+    <ion-row>
+
+      <ion-col size="12" *ngFor="let pair of movie">
+        <ion-card (click)="showMovieDetail(pair.id)" class="popular containe card">
+          <ion-card-subtitle class="overlay">
+            <!-- <h6 class="text"> -->
+            {{pair.title}}
+            <!-- </h6> -->
+          </ion-card-subtitle>
+          <ion-img class="popular imgCard" [src]="pair.poster_path | imgPipes"></ion-img>
+        </ion-card>
+      </ion-col>
+
+
+
+    </ion-row>
+
+  </ion-slide>
+
+  <ion-slide class="slidePlus">
+
+    <ion-chip (click)="chargeMore()" color="success" mode="ios">
+      <ion-label>Load More</ion-label>
+    </ion-chip>
+    <!-- <ion-button (click)="chargeMore()" expand="full" size='large' class="btnPlus">
+      <ion-icon name="add"></ion-icon>
+    </ion-button> -->
+
+  </ion-slide>
+
+</ion-slides>

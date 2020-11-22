@@ -1,0 +1,173 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-chip color="success" mode="ios">
+      <ion-label *ngIf="movieDetail">{{movieDetail.original_title}}</ion-label>
+    </ion-chip>
+    <!-- <ion-title *ngIf="movieDetail">{{movieDetail.original_title}}</ion-title> -->
+    <ion-img (click)="modalDismiss()" slot="end" src="../../../assets/goback.png" class="goBack"></ion-img>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+
+    <ion-row>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Genres</ion-label>
+
+          <ion-col size="12">
+            <ion-chip class="labelPosition" *ngFor="let genre of movieDetail.genres" color="success" mode="ios">
+              <ion-label>{{genre.name}}</ion-label>
+            </ion-chip>
+          </ion-col>
+
+        </ion-item>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-slides *ngIf="movieDetail" mode="ios" pager="ios" scrollbar="ios" [options]='slideOptions'
+           class='sliderSize'>
+          <ion-slide *ngFor="let image of MovieImg.posters ">
+
+            <ion-card>
+              <img [src]="image.file_path | imgPipes" />
+            </ion-card>
+
+          </ion-slide>
+        </ion-slides>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid fixed>
+
+    <ion-row>
+      <ion-col size="3"><img [src]="movieDetail.backdrop_path |imgPipes" alt="backdrop" /></ion-col>
+
+      <ion-col>
+
+        <ion-item>
+
+          <ion-icon small slot="start" src='../../../assets/images.svg'></ion-icon>
+          <ion-note slot="end">
+
+            <ion-chip color="success" mode="ios">
+              <ion-label>Popularity:</ion-label>
+            </ion-chip>
+
+            {{movieDetail.popularity}}
+          </ion-note>
+
+        </ion-item>
+
+        <ion-item>
+
+          <ion-icon small slot="start" src='../../../assets/average.svg'></ion-icon>
+          <ion-note slot="end">
+
+            <ion-chip color="success" mode="ios">
+              <ion-label>Voting Average:</ion-label>
+            </ion-chip>
+            {{movieDetail.vote_average}}
+          </ion-note>
+
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid fixed>
+
+    <ion-row>
+      <ion-col size="12">
+
+        <ion-text>
+          {{movieDetail.overview | slice: 0: readMoreOverview}}
+        </ion-text>
+
+        <ion-label color="primary" (click)="readMoreOverview=5000" *ngIf="readMoreOverview!==5000">...read more
+        </ion-label>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid fixed>
+
+    <ion-row>
+      <ion-col size="12">
+
+        <ion-slides mode="ios" [options]="sliderOptions">
+          <ion-slide class="cast" *ngFor="let cast of castOfArtist">
+
+            <ion-card>
+
+              <ion-text color="primary" class="ion-padding">
+                <h6 class="castname">{{cast.name}}</h6>
+              </ion-text>
+
+              <ion-img *ngIf="cast.profile_path" [src]="cast.profile_path |imgPipes"></ion-img>
+              <ion-img *ngIf="!cast.profile_path" src="../../../assets/noAvatar.jpg"></ion-img>
+
+            </ion-card>
+
+          </ion-slide>
+        </ion-slides>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div class="video">
+
+    <ion-grid fixed>
+      <ion-row class="row">
+        <ion-col size="12">
+          <iframe (onStateChange)="videoPlays($event)" #videoPlayer *ngIf="x" [src]="sanitizeVideo(x)" width="100%"
+            height="260" controls muted=true frameborder="0" style="border-radius:20px" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"> </iframe>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="row">
+        <ion-col size="12">
+          <div class="video">
+            <ion-button (click)="toggleVideo()" fill="clear">
+              <ion-icon src="../../../assets/stop.svg"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+
+  </div>
+
+  <ion-footer>
+    <ion-toolbar class="ion-text-center">
+      <ion-button (click)="onSave()" shape="round" color="success">
+        <ion-icon *ngIf="existence" slot="end" src="../../../assets/liked.svg"></ion-icon>
+
+        <ion-icon *ngIf="!existence" slot="end" src="../../../assets/disliked.svg"></ion-icon>
+        <h6 *ngIf="existence">Dislike</h6>
+        <h6 *ngIf="!existence">Like</h6>
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-content>

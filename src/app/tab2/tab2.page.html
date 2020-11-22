@@ -1,17 +1,69 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+  <ion-toolbar class="ion-text-center">
+    <ion-chip color="success" mode="ios">
+      <ion-icon src='../../../assets/search.svg'></ion-icon>
+      <ion-label> Find a Movie</ion-label>
+    </ion-chip>
+
   </ion-toolbar>
 </ion-header>
+<!-- <app-language (languageSelected)="languageChange($event)"></app-language> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header collapse="condense" mode="ios" collapse='true'>
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-searchbar placeholder="Find Movie" animated [value]="textSearch" (ionChange)="onSearchChange($event)"
+        [debounce]="750" showCancelButton="always"></ion-searchbar>
+
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-grid fixed *ngIf="allSearchResults.length==0">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <ion-chip color="success" mode="ios">
+          <ion-label> Ideas of search</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-list *ngIf="allSearchResults.length==0">
+    <ion-item (click)="textSearch=item" *ngFor="let item of items">
+      <ion-label color="primary">{{item}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6" size-sm="6" size-xs="6" size-md="4" size-lg="3" size-xl="2"
+        *ngFor="let result of allSearchResults ">
+        <ion-card class="card" (click)="movieSelected(result.id)">
+
+          <ion-card-title *ngIf="result.name" class="subtilte-card">
+            {{result.name}}
+            <h6 class="subtilte-card" *ngIf="result.name==null">{{result.original_title}}</h6>
+          </ion-card-title>
+
+          <ion-card-title *ngIf="result.name==null" class="subtilte-card">
+            <h6 *ngIf="result.name">{{result.name}}</h6>
+            {{result.original_title}}
+          </ion-card-title>
+
+          <ion-img class="imgCard" [src]="result.poster_path | imgPipes"></ion-img>
+
+
+
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreMovies($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
